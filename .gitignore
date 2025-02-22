@@ -1,0 +1,22 @@
+# PHP specific
+vendor/
+composer.lock
+
+# Environment files
+.env
+*.env
+
+# IDE specific
+.idea/
+.vscode/
+
+# System specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Cache
+*.cache
