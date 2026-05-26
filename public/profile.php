@@ -62,6 +62,7 @@ $userStats = getUserStats($_SESSION['user_id']);
             <label><input type="checkbox" name="category" value="work"> Work</label>
             <label><input type="checkbox" name="category" value="personal"> Personal</label>
             <label><input type="checkbox" name="category" value="social"> Social</label>
+            <label><input type="checkbox" name="category" value="other"> Other</label>
         </div>
 
         <h2>Upcoming Events</h2>
@@ -70,21 +71,23 @@ $userStats = getUserStats($_SESSION['user_id']);
                 <p>No upcoming events scheduled.</p>
             <?php else: ?>
                 <?php foreach ($upcomingEvents as $event): ?>
-                    <div class="event-item">
-                        <h3><a href="view_event.php?id=<?php echo $event['id']; ?>"><?php echo htmlspecialchars($event['title']); ?></a></h3>
-                        <div class="event-date">
-                            <?php echo htmlspecialchars($event['formatted_date'], ENT_QUOTES, 'UTF-8'); ?> at <?php echo htmlspecialchars($event['formatted_time'], ENT_QUOTES, 'UTF-8'); ?>
+                    <div class="event-item <?php echo htmlspecialchars($event['category'] ?? 'other', ENT_QUOTES, 'UTF-8'); ?>">
+                        <div>
+                            <h3><a href="view_event.php?id=<?php echo $event['id']; ?>"><?php echo htmlspecialchars($event['title']); ?></a></h3>
+                            <div class="event-date">
+                                <?php echo htmlspecialchars($event['formatted_date'], ENT_QUOTES, 'UTF-8'); ?> at <?php echo htmlspecialchars($event['formatted_time'], ENT_QUOTES, 'UTF-8'); ?>
+                            </div>
+                            <div class="event-category <?php echo htmlspecialchars($event['category'] ?? 'other', ENT_QUOTES, 'UTF-8'); ?>">
+                                <?php echo htmlspecialchars($event['category'] ?? 'other', ENT_QUOTES, 'UTF-8'); ?>
+                            </div>
+                            <?php if ($event['description']): ?>
+                                <p style="margin-top: 8px; color: var(--text-muted); font-size: 0.95rem;"><?php echo htmlspecialchars($event['description']); ?></p>
+                            <?php endif; ?>
                         </div>
-                        <div class="event-category">
-                            Category: <?php echo htmlspecialchars($event['category'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?>
-                        </div>
-                        <?php if ($event['description']): ?>
-                            <p><?php echo htmlspecialchars($event['description']); ?></p>
-                        <?php endif; ?>
                         <button class="delete-button"
                             data-event-id="<?php echo $event['id']; ?>"
                             data-csrf-token="<?php echo $_SESSION['csrf_token']; ?>">
-                            Delete Event
+                            Delete
                         </button>
                     </div>
                 <?php endforeach; ?>
@@ -132,17 +135,18 @@ $userStats = getUserStats($_SESSION['user_id']);
                 }
             });
         });
+
         const categoryFilter = document.getElementById('categoryFilter');
         categoryFilter.addEventListener('change', () => {
-
             const selectedCategories = [];
             const checkboxes = categoryFilter.querySelectorAll('input[name="category"]:checked');
             checkboxes.forEach(checkbox => selectedCategories.push(checkbox.value));
 
-            const events = document.querySelectorAll('#eventList .event');
+            const events = document.querySelectorAll('.event-item');
             events.forEach(event => {
-                if (selectedCategories.length === 0 || selectedCategories.includes(event.classList[1])) {
-                    event.style.display = 'block';
+                const hasMatchingCategory = selectedCategories.length === 0 || selectedCategories.some(cat => event.classList.contains(cat));
+                if (hasMatchingCategory) {
+                    event.style.display = 'flex';
                 } else {
                     event.style.display = 'none';
                 }

@@ -28,14 +28,15 @@ require_once '../includes/functions.php';
 
     <div class="calendar">
         <div class="calendar-header">
-            <button id="prevMonth">&lt; Previous</button>
+            <button id="prevMonth">&larr; Previous</button>
             <h2 id="currentMonth"></h2>
-            <button id="nextMonth">Next &gt;</button>
+            <button id="nextMonth">Next &rarr;</button>
         </div>
         <div class="calendar-header">
             <button id="todayButton">Today</button>
 
-            <div id="categoryFilter" style="display: flex; gap: 10px; align-items: center;">
+            <div id="categoryFilter">
+                <h3>Categories</h3>
                 <label><input type="checkbox" name="category" value="work"> Work</label>
                 <label><input type="checkbox" name="category" value="personal"> Personal</label>
                 <label><input type="checkbox" name="category" value="social"> Social</label>
@@ -43,7 +44,7 @@ require_once '../includes/functions.php';
             </div>
             <div class="picker-container">
                 <select id="monthPicker"></select>
-                <input type="number" id="yearPicker" placeholder="Enter year">
+                <input type="number" id="yearPicker" placeholder="Year">
             </div>
         </div>
 
@@ -117,12 +118,11 @@ require_once '../includes/functions.php';
             // Add loading indicator
             grid.innerHTML = '<div class="loading">Loading calendar...</div>';
 
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             days.forEach(day => {
                 const dayHeader = document.createElement('div');
+                dayHeader.className = 'weekday-header';
                 dayHeader.textContent = day;
-                dayHeader.style.fontWeight = 'bold';
-                dayHeader.style.textAlign = 'center';
                 grid.appendChild(dayHeader);
             });
 

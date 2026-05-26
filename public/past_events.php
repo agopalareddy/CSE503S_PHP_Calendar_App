@@ -103,14 +103,13 @@ $pastEvents = getPastEvents($_SESSION['user_id']);
         }
 
         // Handle delete individual event
-        // Handle event deletion
         const deleteEventForms = document.querySelectorAll('.deleteEventForm');
         deleteEventForms.forEach(form => {
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
                 if (confirm('Are you sure you want to delete this event?')) {
                     const eventId = this.getAttribute('data-event-id');
-                    const csrfToken = this.getAttribute('data-csrf-token');
+                    const csrfToken = this.elements['csrf_token'].value;
 
                     fetch(`api/events.php?id=${eventId}`, {
                             method: 'DELETE',
