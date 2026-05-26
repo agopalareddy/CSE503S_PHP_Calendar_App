@@ -25,7 +25,10 @@ function getUpcomingEvents($userId)
             DATE_FORMAT(event_date, '%M %d, %Y') as formatted_date,
             TIME_FORMAT(event_time, '%h:%i %p') as formatted_time,
             category
-        FROM events WHERE user_id = ? AND event_date >= NOW() ORDER BY event_date ASC
+        FROM events 
+        WHERE user_id = ? 
+        AND event_date >= CURRENT_DATE 
+        ORDER BY event_date ASC, event_time ASC
     ";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $userId);
