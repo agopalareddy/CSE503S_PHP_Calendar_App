@@ -174,7 +174,7 @@ require_once '../includes/functions.php';
                 loadingDiv.remove();
             }
 
-            if (document.cookie.includes('PHPSESSID')) {
+            if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
                 fetchEvents();
             }
         }
@@ -198,6 +198,13 @@ require_once '../includes/functions.php';
                     return response.json();
                 })
                 .then(events => {
+                    if (events.error) {
+                        console.warn('Events fetch skipped: ' + events.error);
+                        return;
+                    }
+                    if (!Array.isArray(events)) {
+                        throw new Error('Events response is not an array');
+                    }
                     // Sort events by time
                     events.sort((a, b) => a.event_time.localeCompare(b.event_time));
                     displayEvents(events);
