@@ -41,7 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <p><a href="index.php">Home</a></p>
+    <div class="nav-links">
+        <a href="index.php">Calendar</a>
+        <a href="login.php" class="active">Login</a>
+        <a href="register.php">Register</a>
+    </div>
 
     <h1>Login</h1>
 
@@ -49,14 +53,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
     <?php endif; ?>
 
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8') : ''; ?>" required><br><br>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="form-grid">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8') : ''; ?>" required>
+        </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
 
-        <input type="submit" value="Login">
+        <div class="form-group" style="margin-top: 8px;">
+            <input type="submit" value="Login">
+        </div>
     </form>
 
     <p>Don't have an account? <a href="register.php">Register here</a>.</p>

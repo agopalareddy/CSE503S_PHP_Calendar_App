@@ -31,12 +31,14 @@ $pastEvents = getPastEvents($_SESSION['user_id']);
 </head>
 
 <body>
+    <div class="nav-links">
+        <a href="index.php">Calendar</a>
+        <a href="profile.php">Profile (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a>
+        <a href="past_events.php" class="active">Past Events</a>
+        <a href="logout.php">Logout</a>
+    </div>
+
     <div class="container">
-        <div class="nav-links">
-            <a href="index.php">Calendar</a>
-            <a href="profile.php">Profile</a>
-            <a href="logout.php">Logout</a>
-        </div>
 
         <h1>Past Events</h1>
 

@@ -17,8 +17,9 @@ require_once '../includes/functions.php';
 
 <body>
     <div class="nav-links">
+        <a href="index.php" class="active">Calendar</a>
         <?php if (isset($_SESSION['username'])): ?>
-            <a href="profile.php"><?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8'); ?></a>
+            <a href="profile.php">Profile (<?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8'); ?>)</a>
             <a href="logout.php">Logout</a>
         <?php else: ?>
             <a href="login.php">Login</a>
@@ -156,8 +157,10 @@ require_once '../includes/functions.php';
                     addButton.className = 'add-event-button';
                     addButton.textContent = '+';
                     addButton.onclick = () => {
-                        const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-                        document.getElementById('eventDate').value = selectedDate.toISOString().split('T')[0];
+                        const yyyy = currentDate.getFullYear();
+                        const mm = String(currentDate.getMonth() + 1).padStart(2, '0');
+                        const dd = String(day).padStart(2, '0');
+                        document.getElementById('eventDate').value = `${yyyy}-${mm}-${dd}`;
                         document.getElementById('addEventModal').style.display = 'block';
                         // Clear form when opening
                         document.getElementById('addEventForm').reset();

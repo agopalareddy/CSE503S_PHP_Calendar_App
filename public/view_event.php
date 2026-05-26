@@ -35,7 +35,7 @@ if (!$event) {
 <body>
     <div class="nav-links">
         <a href="index.php">Calendar</a>
-        <a href="profile.php">Profile</a>
+        <a href="profile.php">Profile (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a>
         <a href="logout.php">Logout</a>
     </div>
 
@@ -70,7 +70,7 @@ if (!$event) {
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2>Edit Event</h2>
-            <form id="editEventForm" class="form-grid" style="margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
+            <form id="editEventForm" class="form-grid">
                 <input type="hidden" id="eventId" name="id">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="action" value="update">

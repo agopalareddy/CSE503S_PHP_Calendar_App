@@ -51,7 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <p><a href="index.php">Home</a></p>
+    <div class="nav-links">
+        <a href="index.php">Calendar</a>
+        <a href="login.php">Login</a>
+        <a href="register.php" class="active">Register</a>
+    </div>
 
     <h1>Register</h1>
 
@@ -59,17 +63,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="error"><?php echo $error; ?></p>
     <?php endif; ?>
 
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="form-grid">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
 
-        <label for="confirm_password">Confirm Password:</label>
-        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
 
-        <input type="submit" value="Register">
+        <div class="form-group" style="margin-top: 8px;">
+            <input type="submit" value="Register">
+        </div>
     </form>
 
     <p>Already have an account? <a href="login.php">Login here</a>.</p>
