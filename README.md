@@ -1,35 +1,49 @@
-# Personal Calendar & Events Manager
+# Chronos — Personal Calendar & Events Manager 📅✨
 
-A secure, high-fidelity personal scheduling and event management application built with **PHP 8.4** and **MySQL**. This application features a premium, responsive glassmorphic dark-theme dashboard, low-latency client-side filters, and robust security defenses against common web vulnerabilities.
+[![Course](https://img.shields.io/badge/WUSTL-CSE%20503S-blue.svg)](https://cse.wustl.edu/)
+[![Backend](https://img.shields.io/badge/PHP-8.4-indigo.svg)](https://www.php.net/)
+[![Database](https://img.shields.io/badge/MySQL-8.0-blue.svg)](https://www.mysql.com/)
+[![Frontend](https://img.shields.io/badge/Vanilla%20JS-ES6-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Styling](https://img.shields.io/badge/CSS3-Vanilla-violet.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+> A secure, high-fidelity personal scheduling and event management application. This application features a premium, responsive glassmorphic dark-theme dashboard, low-latency client-side filters, and robust security defenses against common web vulnerabilities. Built with PHP 8.4 and MySQL.
+
+---
+
+## 📌 Table of Contents
+
+- [🌟 Key Features](#-key-features)
+- [🛠️ Tech Stack & Architecture](#️-tech-stack--architecture)
+- [💾 Database Schema](#-database-schema)
+- [⚙️ Setup & Local Installation](#-setup--local-installation)
+- [🚀 Run & Quick Start](#-run--quick-start)
+- [🛡️ Security & Architecture Best Practices](#️-security--architecture-best-practices)
+- [🤝 Contributing & Support](#-contributing--support)
+- [📄 License](#-license)
 
 ---
 
 ## 🌟 Key Features
 
-*   **Dynamic Calendar Dashboard**: A fully responsive calendar month-view grid rendering dynamic daily appointments with interactive hover highlights.
-*   **Low-Latency Category Filtering**: Effortlessly filter events by categories (`Work`, `Personal`, `Social`, `Other`) using local JavaScript transitions without full-page reloads.
-*   **Sleek Modern Visuals**: Aesthetic dark-slate design system powered by the **Outfit** Google Font, fluid CSS transitions, custom HSL-tailored variables, and glassmorphism cards.
-*   **Strict Security Architecture**:
-    *   **Robust CSRF Protection**: Cryptographically secure anti-CSRF tokens validating all state-changing endpoints (updates, insertions, deletions).
-    *   **SQL Injection Prevention**: All data mutations and selects are bound through MySQL Prepared Statements (`mysqli_stmt_bind_param`).
-    *   **Secure Authentication**: User registration and logins powered by industry-standard cryptographically hashed password databases (`password_hash` with bcrypt).
-    *   **XSS Protection**: Comprehensive output sanitization using specialized `htmlspecialchars()` filters.
-*   **Event Details Overlay**: Beautiful modal controls and dedicated view pages supporting category modifications and deletions.
-*   **Metrics & Profile Logs**: Visual dashboard cards tracking personal productivity metrics (Total Events, Upcoming Events, Account details).
+- **📅 Dynamic Calendar Dashboard:** A fully responsive calendar month-view grid rendering dynamic daily appointments with interactive hover highlights and pop-up details.
+- **⚡ Low-Latency Category Filtering:** Effortlessly filter events by categories (`Work`, `Personal`, `Social`, `Other`) using local JavaScript transitions without full-page reloads.
+- **🎨 Glassmorphic Visuals:** Aesthetic dark-slate design system powered by the **Outfit** Google Font, fluid CSS transitions, custom HSL-tailored variables, and premium glassmorphic cards.
+- **🛡️ Comprehensive Security:** Cryptographically secure CSRF protection, SQL Injection prevention via MySQL Prepared Statements, robust password hashing, and complete output sanitization.
+- **✏️ Event Details Overlay:** Elegant modal controls and dedicated view pages supporting real-time category updates and cascading deletions.
+- **📊 Metrics & Profile Analytics:** Visual dashboard widgets tracking personal productivity metrics (Total Events, Upcoming Events, Account metadata).
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Tech Stack & Architecture
 
-*   **Backend Core**: PHP 8.4
-*   **Database Engine**: MySQL
-*   **Styling (CSS)**: Vanilla CSS3 (CSS Variables, Flexbox, CSS Grid, Glassmorphic overlays)
-*   **Interactions (JS)**: Vanilla ECMAScript 6 (Fetch API, dynamic rendering, coordinator-based listeners)
+### Technology Stack
+- **Backend Core**: PHP 8.4 (Session tracking, anti-CSRF token verification, prepared statements)
+- **Database Engine**: MySQL 8.0+ (Relational structure with foreign key cascades)
+- **Frontend Scripting**: Vanilla ES6 ECMAScript (Fetch API integration, asynchronous rendering)
+- **Styling System**: CSS Custom Properties (Responsive dark theme, glassmorphism card overlays)
 
----
-
-## 📁 Repository Structure
-
+### Directory Structure
 ```
 calendar-app/
 ├── includes/
@@ -58,7 +72,7 @@ calendar-app/
 
 ## 💾 Database Schema
 
-Deploy the following relational MySQL schemas to set up the database:
+Deploy the following relational MySQL schemas to configure the database:
 
 ### 1. Users Table
 ```sql
@@ -87,24 +101,36 @@ CREATE TABLE events (
 
 ---
 
-## 🚀 Setup & Local Installation
+## ⚙️ Setup & Local Installation
 
-### 1. Prerequisites
-- **Web Server**: Apache or Nginx configured with PHP 8.4 support
-- **Database Server**: MySQL 8.0+
+### Prerequisites
+* **Web Server**: Apache or Nginx configured with PHP 8.4 support
+* **Database**: MySQL 8.0+
 
-### 2. Set Up Environment Configuration
-Create a `.env` file in the root of the `calendar-app/` directory (properly excluded from git in `.gitignore`) and define database credentials:
+### Installation
+1. **Clone the Repository & Move to Directory**:
+   ```bash
+   git clone https://github.com/agopalareddy/tales-we-weave.git # (Sub-repository path: calendar-app)
+   cd calendar-app
+   ```
 
-```ini
-DB_SERVER=localhost
-DB_USERNAME=your_mysql_username
-DB_PASSWORD=your_mysql_password
-DB_NAME=calendar
-```
+2. **Configure Environment Variables**:
+   Create a `.env` file in the root of the `calendar-app/` directory:
+   ```ini
+   DB_SERVER=localhost
+   DB_USERNAME=your_mysql_username
+   DB_PASSWORD=your_mysql_password
+   DB_NAME=calendar
+   ```
 
-### 3. Configure Local Nginx/Apache Path
-Point your local web server configuration to target the `/public/` subdirectory for clean routing and public safety.
+3. **Deploy the Database**:
+   Import the schemas listed in the [Database Schema](#-database-schema) section into your MySQL instance.
+
+---
+
+## 🚀 Run & Quick Start
+
+Configure your Nginx or Apache server to target the `/public/` subdirectory for clean routing and public safety.
 
 For Nginx:
 ```nginx
@@ -121,10 +147,27 @@ location /calendar/ {
 }
 ```
 
+Verify your server connection and navigate to `http://localhost/calendar/` (or your customized server domain).
+
 ---
 
-## 🛡️ Security Best Practices Enforced
-1.  **Session Hardening**: All views check for valid user IDs via `session_start()` and automatically reject unauthorized HTTP requests.
-2.  **CSRF Seals**: Custom cryptographic hashes mapped to individual sessions prevent remote scripting attacks.
-3.  **Bcrypt Hashing**: Passwords are securely hashed with bcrypt using standard cost configurations to counter brute-force table attacks.
-4.  **Prepared Statements**: Dynamic query arguments are explicitly bound via native parameter interfaces to prevent SQL injection.
+## 🛡️ Security & Architecture Best Practices
+
+1. **Session Hardening:** All views check for valid user IDs via secure PHP session management (`session_start()`) and reject unauthorized traffic.
+2. **CSRF Seals:** Custom, session-mapped cryptographic tokens prevent cross-site request forgery attacks.
+3. **Bcrypt Hashing:** User passwords are encrypted using PHP `password_hash()` with secure cost factor parameters.
+4. **SQL Injection Prevention:** Native MySQL prepared statements (`mysqli_stmt_bind_param`) explicitly bind inputs to isolate queries from parameters.
+5. **XSS Protection:** Strict output sanitization using `htmlspecialchars()` on all dynamic user inputs before rendering inside the DOM.
+
+---
+
+## 🤝 Contributing & Support
+
+### Contributions
+This application is part of the **CSE 503S: Rapid Prototyping and Creative Programming** workspace at Washington University in St. Louis. Issues and PRs are welcome!
+
+---
+
+## 📄 License
+
+Distributed under the **MIT License**. See `LICENSE` for details.
